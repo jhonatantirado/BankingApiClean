@@ -2,12 +2,15 @@ package banking.customers.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import banking.common.api.controller.ResponseHandler;
+import banking.customers.application.CustomerApplicationService;
+import banking.customers.application.dto.CustomerDto;
 import banking.transactions.application.TransactionApplicationService;
 import banking.transactions.application.dto.RequestBankTransferDto;
 
@@ -15,15 +18,16 @@ import banking.transactions.application.dto.RequestBankTransferDto;
 @RequestMapping("api/customers/")
 public class CustomerController{		
 		@Autowired
-		TransactionApplicationService transactionApplicationService;
+		CustomerApplicationService customerApplicationService;
 		
 		@Autowired
 		ResponseHandler responseHandler;
 
-		@RequestMapping(method = RequestMethod.POST, path = "transfers", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
-		public ResponseEntity<Object> performTransfer(@RequestBody RequestBankTransferDto requestBankTransferDto) throws Exception {
+		@CrossOrigin(origins = "http://localhost:4200")
+		@RequestMapping(method = RequestMethod.POST, path = "create", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
+		public ResponseEntity<Object> performCreate(@RequestBody CustomerDto customerDto) throws Exception {
 			try {
-				transactionApplicationService.performTransfer(requestBankTransferDto);
+				customerApplicationService.performCreate(customerDto);
 				return this.responseHandler.getOkCommandResponse("Transfer done!");
 			} catch(IllegalArgumentException ex) {
 				return this.responseHandler.getAppCustomErrorResponse(ex.getMessage());

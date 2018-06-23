@@ -3,8 +3,10 @@ package banking.customers.application.dto;
 import java.util.Set;
 
 import banking.accounts.application.dto.BankAccountDto;
+import banking.common.application.dto.RequestBaseDto;
+import banking.common.application.enumeration.RequestBodyType;
 
-public class CustomerDto {
+public class CustomerDto  extends RequestBaseDto {
 	private String firstName;
 	private String lastName;
 	private Set<BankAccountDto> bankAccountsDto;
@@ -32,4 +34,6 @@ public class CustomerDto {
 	public void setBankAccountsDto(Set<BankAccountDto> bankAccountsDto) {
 		this.bankAccountsDto = bankAccountsDto;
 	}
+
+	
 }

@@ -8,7 +8,7 @@
             <generator class="native"/>
         </id>
         <property name="firstName" column="first_name"/>
-        <property name="lastName" column="last_name"/>
+        <property name="lastName" column="last_name"/>       
         
         <set name="bankAccounts" inverse="true" cascade="all">
             <key column="customer_id" not-null="true"/>
