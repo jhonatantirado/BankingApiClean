@@ -1,8 +1,13 @@
 package banking.common.infrastructure.hibernate.repository;
 
+import java.util.List;
+
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import banking.customers.domain.entity.Customer;
 
 public class BaseHibernateRepository<T> implements BaseRepository<T> {
 
@@ -36,4 +41,9 @@ public class BaseHibernateRepository<T> implements BaseRepository<T> {
 	public void saveOrUpdate(T entity) {
 		getSession().saveOrUpdate(entity);
 	}
+	
+	
+	
+	
+	
 }

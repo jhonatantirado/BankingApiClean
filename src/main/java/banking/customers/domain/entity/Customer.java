@@ -5,10 +5,20 @@ import java.util.Set;
 import banking.accounts.domain.entity.BankAccount;
 
 public class Customer {
-	private long id;
+	
     private String firstName;
     private String lastName;
-    private Set<BankAccount> bankAccounts;
+    private int active;
+    private long id;
+    public int getActive() {
+		return active;
+	}
+
+	public void setActive(int active) {
+		this.active = active;
+	}
+
+	private Set<BankAccount> bankAccounts;
 
     public Customer() {
     }

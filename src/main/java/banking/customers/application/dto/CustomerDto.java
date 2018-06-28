@@ -1,15 +1,22 @@
 package banking.customers.application.dto;
 
-import java.util.Set;
 
-import banking.accounts.application.dto.BankAccountDto;
 import banking.common.application.dto.RequestBaseDto;
-import banking.common.application.enumeration.RequestBodyType;
 
 public class CustomerDto  extends RequestBaseDto {
 	private String firstName;
 	private String lastName;
-	private Set<BankAccountDto> bankAccountsDto;
+	
+	private int id;
+	
+			
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -25,14 +32,6 @@ public class CustomerDto  extends RequestBaseDto {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-
-	public Set<BankAccountDto> getBankAccountsDto() {
-		return bankAccountsDto;
-	}
-
-	public void setBankAccountsDto(Set<BankAccountDto> bankAccountsDto) {
-		this.bankAccountsDto = bankAccountsDto;
 	}
 
 	
