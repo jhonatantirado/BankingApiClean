@@ -44,7 +44,7 @@ public class CustomerController{
 			}
 		}
 		
-		@PostMapping("/createcustomer2")
+		@PostMapping("/customer")
 		public Customer createEmployee(@Valid @RequestBody Customer customer) {
 			
 			    return customerApplicationService.save(customer);			   
@@ -52,15 +52,15 @@ public class CustomerController{
 		}
 				
 		@CrossOrigin(origins = "http://localhost:4200")	
-		@GetMapping("/getallcustomer")
+		@GetMapping("/customer")
 		public List<Customer> getAllCustomer() throws Exception{	
 			
 			return customerApplicationService.performCustomergetAll();			
 		}	
 		
 		@CrossOrigin(origins = "http://localhost:4200")	
-		@GetMapping("/customerget/{id}")
-		public ResponseEntity<Object> getCustomerById(@PathVariable(value="id") Long customerid){
+		@GetMapping("/customer/{CustomerId}")
+		public ResponseEntity<Object> getCustomerById(@PathVariable(value="CustomerId") Long customerid){
 			
 			try {
 				Customer customer=customerApplicationService.findOne(customerid);
@@ -76,8 +76,8 @@ public class CustomerController{
 			}
 		}
 		
-		@PutMapping("/customerup/{id}")
-		public ResponseEntity<Object> updateCustomer(@PathVariable(value="id") Long customerid,@Valid @RequestBody Customer customerDto){
+		@PutMapping("/customer/{CustomerId}")
+		public ResponseEntity<Object> updateCustomer(@PathVariable(value="CustomerId") Long customerid,@Valid @RequestBody Customer customerDto){
 			try{
 			Customer customer =customerApplicationService.findOne(customerid);
 			if(customer==null) {
@@ -99,8 +99,8 @@ public class CustomerController{
 		}
 		
 		
-		@DeleteMapping("/customerdel/{id}")
-		public ResponseEntity<Object> deleteCustomer(@PathVariable(value="id") Long empid){
+		@DeleteMapping("/customer/{CustomerId}")
+		public ResponseEntity<Object> deleteCustomer(@PathVariable(value="CustomerId") Long empid){
 			
 			try{
 				Customer customer=customerApplicationService.findOne(empid);

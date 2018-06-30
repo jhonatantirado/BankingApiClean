@@ -2,7 +2,7 @@ CREATE TABLE bank_account (
   bank_account_id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   number VARCHAR(50) NOT NULL,
   balance DECIMAL(10,2) NOT NULL,
-  locked BIT NOT NULL,
+  islocked BOOLEAN,
   customer_id BIGINT UNSIGNED NOT NULL,
   PRIMARY KEY(bank_account_id),
   INDEX IX_bank_account_customer_id (customer_id),
