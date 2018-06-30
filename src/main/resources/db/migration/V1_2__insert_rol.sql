@@ -1,0 +1,1 @@
+ INSERT INTO rol(id_rol, detalle, islocked) VALUES(1,'Jefe',TRUE);

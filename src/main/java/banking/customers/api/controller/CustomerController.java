@@ -44,13 +44,15 @@ public class CustomerController{
 			}
 		}
 		
+		//CrearCustomer
 		@PostMapping("/customer")
 		public Customer createEmployee(@Valid @RequestBody Customer customer) {
 			
 			    return customerApplicationService.save(customer);			   
 
 		}
-				
+		
+		//ListaCustomer
 		@CrossOrigin(origins = "http://localhost:4200")	
 		@GetMapping("/customer")
 		public List<Customer> getAllCustomer() throws Exception{	
@@ -58,6 +60,7 @@ public class CustomerController{
 			return customerApplicationService.performCustomergetAll();			
 		}	
 		
+		//ListaIdCustomer
 		@CrossOrigin(origins = "http://localhost:4200")	
 		@GetMapping("/customer/{CustomerId}")
 		public ResponseEntity<Object> getCustomerById(@PathVariable(value="CustomerId") Long customerid){
@@ -76,6 +79,7 @@ public class CustomerController{
 			}
 		}
 		
+		//UpdateIdCustomer
 		@PutMapping("/customer/{CustomerId}")
 		public ResponseEntity<Object> updateCustomer(@PathVariable(value="CustomerId") Long customerid,@Valid @RequestBody Customer customerDto){
 			try{
@@ -98,7 +102,7 @@ public class CustomerController{
 			}	
 		}
 		
-		
+		//EliminarIdCustomer
 		@DeleteMapping("/customer/{CustomerId}")
 		public ResponseEntity<Object> deleteCustomer(@PathVariable(value="CustomerId") Long empid){
 			
