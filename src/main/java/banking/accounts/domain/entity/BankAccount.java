@@ -9,13 +9,11 @@ public class BankAccount {
 	private long id;
     private String number;
     private BigDecimal balance;
-    private boolean isLocked;
+    private boolean isLocked; 
     private Customer customer;
+    
 
-    public BankAccount() {
-    }
-
-    public void lock() {
+	public void lock() {
         if (!this.isLocked) {
             this.isLocked = true;
         }
@@ -126,11 +124,11 @@ public class BankAccount {
         this.isLocked = isLocked;
     }
 
-    public Customer getCustomer() {
+   public Customer getCustomer() {
         return customer;
-    }
+   }
 
     public void setCustomer(Customer customer) {
-        this.customer = customer;
+       this.customer = customer;
     }
 }

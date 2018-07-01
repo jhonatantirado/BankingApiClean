@@ -79,8 +79,7 @@ public class CustomerController{
 			return this.responseHandler.getAppCustomErrorResponse(ex.getMessage());
 		} catch(Exception ex) {
 			return this.responseHandler.getAppExceptionResponse();
-		}	
-					
+		}						
 		}
 		
 		//ListaCustomer

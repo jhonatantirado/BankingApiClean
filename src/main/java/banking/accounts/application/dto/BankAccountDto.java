@@ -2,14 +2,16 @@ package banking.accounts.application.dto;
 
 import java.math.BigDecimal;
 
+import banking.common.application.dto.RequestBaseDto;
 import banking.customers.application.dto.CustomerDto;
 
-public class BankAccountDto {
+public class BankAccountDto extends RequestBaseDto {
 	private long id;
 	private String number;
 	private BigDecimal balance;
 	private boolean isLocked;
 	private CustomerDto customer;
+	
 
 	public long getId() {
 		return id;

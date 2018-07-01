@@ -20,6 +20,11 @@ public class CustomerDto  extends RequestBaseDto {
     private String password; 
     private String id_rol;	
 	
+    public CustomerDto() {
+	}
+	
+    
+    
 	 public String getPassword() {
 			return password;
 		}
