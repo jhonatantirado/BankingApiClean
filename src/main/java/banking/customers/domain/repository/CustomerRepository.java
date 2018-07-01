@@ -9,6 +9,6 @@ public interface CustomerRepository {
 	Customer create(Customer customer) throws Exception;	
 	void save(Customer customer);
 	
-	void getId(Customer customer);		
+
 	
 }

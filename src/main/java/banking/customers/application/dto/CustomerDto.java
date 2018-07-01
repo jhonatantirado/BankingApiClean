@@ -19,7 +19,8 @@ public class CustomerDto  extends RequestBaseDto {
     private String user;
     private String password; 
     private String id_rol;	
-	
+	  
+    
     public CustomerDto() {
 	}
 	

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import banking.common.api.controller.ResponseHandler;
 import banking.customers.application.CustomerApplicationService;
@@ -81,6 +82,16 @@ public class CustomerController{
 			return this.responseHandler.getAppExceptionResponse();
 		}						
 		}
+		
+			
+		
+		@RequestMapping(value="/customer/Login/{user,password}")  
+	    public ModelAndView edit(@PathVariable String user , String password){  
+	        
+	        List<Customer> list=customerApplicationService.getLoginCustomer(user,password);  
+	          
+	        return new ModelAndView("viewstudents","list",list);  
+	    }
 		
 		//ListaCustomer
 	    @CrossOrigin(origins = "http://localhost:4200")	

@@ -21,13 +21,7 @@ public class CustomerHibernateRepository extends BaseHibernateRepository<Custome
 		super.save(customer);		
 	}	
 	
-	public void getId(Customer customer) {
-		super.getSession();		
-	}	
 	
-	public void getId() {
-		super.getSession();		
-	}	
 	
 	
 }

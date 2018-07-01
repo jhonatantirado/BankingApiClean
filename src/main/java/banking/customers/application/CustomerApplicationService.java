@@ -20,11 +20,13 @@ import banking.customers.domain.repository.CustomerRepositoryN;
 
 
 @Service()
-public class CustomerApplicationService {
+public class CustomerApplicationService implements ICustomerApplicationService {
 
 	@Autowired
 	private CustomerRepositoryN customerRepositoryN;
 	
+	@Autowired
+	private banking.customers.application.dao.CustomerDAO CustomerDAO;
 	
 	@Transactional
 	public ResponseEntity<Object> performCreateCustomer(CustomerDto customerDto) throws Exception {		
@@ -74,6 +76,7 @@ public class CustomerApplicationService {
 		
 	}	
 	
+		
 	@Transactional
 	public ResponseEntity<Object> performGetCustomerId(int customerid) throws Exception {
 		CustomerDto customerDto = new CustomerDto();
@@ -110,9 +113,7 @@ public class CustomerApplicationService {
 		return ResponseEntity.ok().build();	
 	}
 	
-	
-	
-	
+
 	@Transactional
 	public Customer save(Customer customer) {
 		return customerRepositoryN.save(customer);
@@ -141,4 +142,12 @@ public class CustomerApplicationService {
 		}
 		return notification;
 	}
+
+	@Override
+	public List<Customer> getLoginCustomer(String user,String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
 }
