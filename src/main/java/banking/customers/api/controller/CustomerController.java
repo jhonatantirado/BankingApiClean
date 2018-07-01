@@ -30,48 +30,27 @@ public class CustomerController{
 		CustomerApplicationService customerApplicationService;
 		
 		@Autowired
-		ResponseHandler responseHandler;
+		ResponseHandler responseHandler;		
+				
+		//CrearCustomer				
 		@CrossOrigin(origins = "http://localhost:4200")
-		@RequestMapping(method = RequestMethod.POST, path = "createcustomer", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
-		public ResponseEntity<Object> performCreate(@RequestBody CustomerDto customerDto) throws Exception {
+		@RequestMapping(method = RequestMethod.POST, path = "customer", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
+		public ResponseEntity<Object> createEmployee(@Valid @RequestBody CustomerDto customerDto) throws Exception {
 			try {
-				customerApplicationService.performCreate(customerDto);
-				return this.responseHandler.getOkCommandResponse("Transfer done!");
+			return customerApplicationService.performCreateCustomer(customerDto);  			
 			} catch(IllegalArgumentException ex) {
 				return this.responseHandler.getAppCustomErrorResponse(ex.getMessage());
 			} catch(Exception ex) {
 				return this.responseHandler.getAppExceptionResponse();
 			}
-		}
-		
-		//CrearCustomer
-		@PostMapping("/customer")
-		public Customer createEmployee(@Valid @RequestBody Customer customer) {
-			
-			    return customerApplicationService.save(customer);			   
-
-		}
-		
-		//ListaCustomer
-		@CrossOrigin(origins = "http://localhost:4200")	
-		@GetMapping("/customer")
-		public List<Customer> getAllCustomer() throws Exception{	
-			
-			return customerApplicationService.performCustomergetAll();			
-		}	
+		}		
 		
 		//ListaIdCustomer
 		@CrossOrigin(origins = "http://localhost:4200")	
 		@GetMapping("/customer/{CustomerId}")
-		public ResponseEntity<Object> getCustomerById(@PathVariable(value="CustomerId") Long customerid){
-			
-			try {
-				Customer customer=customerApplicationService.findOne(customerid);
-				
-				if(customer==null) {
-					return ResponseEntity.notFound().build();
-				}
-				return ResponseEntity.ok().body(customer);
+		public ResponseEntity<Object> getCustomerById(@PathVariable(value="CustomerId") int customerid){
+		try {				
+				return customerApplicationService.performGetCustomerId(customerid);				
 			} catch(IllegalArgumentException ex) {
 				return this.responseHandler.getAppCustomErrorResponse(ex.getMessage());
 			} catch(Exception ex) {
@@ -81,27 +60,9 @@ public class CustomerController{
 		
 		//UpdateIdCustomer
 		@PutMapping("/customer/{CustomerId}")
-		public ResponseEntity<Object> updateCustomer(@PathVariable(value="CustomerId") Long customerid,@Valid @RequestBody Customer customerDto){
-			try{
-			Customer customer =customerApplicationService.findOne(customerid);
-			if(customer==null) {
-				return ResponseEntity.notFound().build();
-			}
-			
-			customer.setFirstName(customerDto.getFirstName());
-			customer.setLastName(customerDto.getLastName());
-			customer.setBirthDate(customerDto.getBirthDate());
-			customer.setDocumentNumber(customerDto.getDocumentNumber());
-			customer.setActive(customerDto.getActive());
-			customer.setCellphone(customerDto.getCellphone());
-			customer.setEmail(customerDto.getEmail());
-			customer.setUser(customerDto.getUser());
-			customer.setPassword(customerDto.getPassword());
-			customer.setId_rol(customerDto.getId_rol());
-			
-			Customer updateEmployee=customerApplicationService.save(customer);
-			return ResponseEntity.ok().body(updateEmployee);
-			
+		public ResponseEntity<Object> updateCustomer(@PathVariable(value="CustomerId") Long customerid,@Valid @RequestBody CustomerDto customerDto){
+			try{				
+				return customerApplicationService.performUpdateCustomer(customerDto, customerid);
 			} catch(IllegalArgumentException ex) {
 				return this.responseHandler.getAppCustomErrorResponse(ex.getMessage());
 			} catch(Exception ex) {
@@ -111,22 +72,21 @@ public class CustomerController{
 		
 		//EliminarIdCustomer
 		@DeleteMapping("/customer/{CustomerId}")
-		public ResponseEntity<Object> deleteCustomer(@PathVariable(value="CustomerId") Long empid){
-			
-			try{
-				Customer customer=customerApplicationService.findOne(empid);
-				if(customer==null) {
-					return ResponseEntity.notFound().build();
-				}
-				customerApplicationService.delete(customer);
-				
-				return ResponseEntity.ok().build();	
-				
+		public ResponseEntity<Object> deleteCustomer(@PathVariable(value="CustomerId") int customerid){
+		try{
+				return customerApplicationService.performDelCustomerId(customerid);					
 		} catch(IllegalArgumentException ex) {
 			return this.responseHandler.getAppCustomErrorResponse(ex.getMessage());
 		} catch(Exception ex) {
 			return this.responseHandler.getAppExceptionResponse();
-		}		
-					
 		}	
+					
+		}
+		
+		//ListaCustomer
+	    @CrossOrigin(origins = "http://localhost:4200")	
+	    @GetMapping("/customer")
+		public List<Customer> getAllCustomer() throws Exception{
+		   return customerApplicationService.performCustomergetAll();
+		}
 	}

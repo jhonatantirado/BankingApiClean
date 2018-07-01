@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,19 +25,90 @@ public class CustomerApplicationService {
 	@Autowired
 	private CustomerRepositoryN customerRepositoryN;
 	
+	
 	@Transactional
-	public void performCreate(CustomerDto customerDto) throws Exception {
+	public ResponseEntity<Object> performCreateCustomer(CustomerDto customerDto) throws Exception {		
 		Notification notification = this.validation(customerDto);
         if (notification.hasErrors()) {
             throw new IllegalArgumentException(notification.errorMessage());
-        }	
-        
-        Customer customer = new Customer();         
-        customer.setFirstName(customerDto.getFirstName());
-        customer.setLastName(customerDto.getLastName()); 
-        customer.setActive(1);
-        this.customerRepositoryN.save(customer);
+        }
+		Customer customer = new Customer(); 
+		customer.setFirstName(customerDto.getFirstName());
+		customer.setLastName(customerDto.getLastName());
+		customer.setBirthDate(customerDto.getBirthDate());
+		customer.setDocumentNumber(customerDto.getDocumentNumber());
+		customer.setActive(customerDto.getActive());
+		customer.setCellphone(customerDto.getCellphone());
+		customer.setEmail(customerDto.getEmail());
+		customer.setUser(customerDto.getUser());
+		customer.setPassword(customerDto.getPassword());
+		customer.setId_rol(customerDto.getId_rol());		
+		Customer CreateCustomer= this.save(customer);		
+		return ResponseEntity.ok().body(CreateCustomer);				
 	}	
+	
+	
+	
+	@Transactional
+	public ResponseEntity<Object> performUpdateCustomer(CustomerDto customerDto, Long customerid) throws Exception {
+		Notification notification = this.validation(customerDto);
+        if (notification.hasErrors()) {
+            throw new IllegalArgumentException(notification.errorMessage());
+        }
+		Customer customer = this.findOne(customerid);
+		if(customer==null) {
+			return ResponseEntity.notFound().build();
+		}		
+		customer.setFirstName(customerDto.getFirstName());
+		customer.setLastName(customerDto.getLastName());
+		customer.setBirthDate(customerDto.getBirthDate());
+		customer.setDocumentNumber(customerDto.getDocumentNumber());
+		customer.setActive(customerDto.getActive());
+		customer.setCellphone(customerDto.getCellphone());
+		customer.setEmail(customerDto.getEmail());
+		customer.setUser(customerDto.getUser());
+		customer.setPassword(customerDto.getPassword());
+		customer.setId_rol(customerDto.getId_rol());		
+		Customer updateEmployee= this.save(customer);		
+		return ResponseEntity.ok().body(updateEmployee);
+		
+	}	
+	
+	@Transactional
+	public ResponseEntity<Object> performGetCustomerId(int customerid) throws Exception {
+		CustomerDto customerDto = new CustomerDto();
+		customerDto.setId(customerid);		
+		Notification notification = this.validation(customerDto);
+        if (notification.hasErrors()) {
+            throw new IllegalArgumentException(notification.errorMessage());
+        }		
+		Customer customer=this.findOne(Long.valueOf(customerid));		
+		if(customer==null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(customer);
+	}
+	
+	@Transactional
+	public ResponseEntity<Customer> performGetAllCustomer(Customer customer) throws Exception {
+		return   (ResponseEntity<Customer>) this.customerRepositoryN.findAll();
+	}
+	
+	@Transactional
+	public ResponseEntity<Object> performDelCustomerId(int customerid) throws Exception {
+		CustomerDto customerDto = new CustomerDto();
+		customerDto.setId(customerid);		
+		Notification notification = this.validation(customerDto);
+        if (notification.hasErrors()) {
+            throw new IllegalArgumentException(notification.errorMessage());
+        }		
+		Customer customer=this.findOne(Long.valueOf(customerid));
+		if(customer==null) {
+			return ResponseEntity.notFound().build();
+		}
+		this.delete(customer);		
+		return ResponseEntity.ok().build();	
+	}
 	
 	
 	
@@ -48,7 +120,7 @@ public class CustomerApplicationService {
 	
 	@Transactional
 	public List<Customer> performCustomergetAll()  throws Exception {
-		return this.customerRepositoryN.findAll();
+		return customerRepositoryN.findAll();
 	}
 	
 	@Transactional
