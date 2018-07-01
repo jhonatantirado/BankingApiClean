@@ -15,6 +15,10 @@
           <property name="cellphone" column="cellphone"/>
          <property name="email" column="email"/>
          
+         <property name="user" column="user"/>
+         <property name="password" column="password"/>
+           <property name="id_rol" column="id_rol"/>
+         
         <set name="bankAccounts" inverse="true" cascade="all">
             <key column="customer_id" not-null="true"/>
             <one-to-many class="banking.accounts.domain.entity.BankAccount"/>

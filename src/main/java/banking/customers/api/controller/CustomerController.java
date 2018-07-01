@@ -90,7 +90,14 @@ public class CustomerController{
 			
 			customer.setFirstName(customerDto.getFirstName());
 			customer.setLastName(customerDto.getLastName());
+			customer.setBirthDate(customerDto.getBirthDate());
+			customer.setDocumentNumber(customerDto.getDocumentNumber());
 			customer.setActive(customerDto.getActive());
+			customer.setCellphone(customerDto.getCellphone());
+			customer.setEmail(customerDto.getEmail());
+			customer.setUser(customerDto.getUser());
+			customer.setPassword(customerDto.getPassword());
+			customer.setId_rol(customerDto.getId_rol());
 			
 			Customer updateEmployee=customerApplicationService.save(customer);
 			return ResponseEntity.ok().body(updateEmployee);
