@@ -82,7 +82,6 @@ public class CustomerController{
 		}
 		
 			
-		//@RequestMapping(value = "/login/{user}/{password}/", method = RequestMethod.GET)
 		@RequestMapping(method = RequestMethod.GET, value = "/login/{user}/{password}")
 	    public List<Customer> GetCustomerLogin(@PathVariable(value="user") String user,@PathVariable(value="password") String password){  
 	        			
