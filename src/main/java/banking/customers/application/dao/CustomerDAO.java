@@ -31,9 +31,9 @@ JdbcTemplate template;
 		template = new JdbcTemplate(dataSource);
 	}
 	
-	public List<Customer> getLoginCustomer(String user, String password) {
-		// TODO Auto-generated method stub
-		 String sql="select * from customer";  
+	public List<Customer> getLoginCustomer(String user, String password) {		
+		String sql="SELECT c.customer_id ,c.first_name,c.last_name,c.cellphone ,c.document_number , i.detalle AS perfil  FROM customer c INNER JOIN rol i ON c.customer_id = i.id_rol  WHERE c.user ="+"'"+user+"'" + " AND c.password ="+"'"+password+"'"  ;
+		// String sql="select * from customer where user ="+"'"+user+"'" + " and password ="+"'"+password+"'" ;  
 		 return template.query(sql,new ResultSetExtractor<List<Customer>>(){  
 		    
 		     public List<Customer> extractData(ResultSet rs) throws SQLException,  
@@ -42,11 +42,16 @@ JdbcTemplate template;
 		        List<Customer> list=new ArrayList<Customer>();  
 		        
 		        while(rs.next()){  
-		        	Customer e=new Customer();  
-		        e.setId(rs.getInt(1));
-		        e.setFirstName(rs.getString(2));
-		        e.setLastName(rs.getString(3));
-		        list.add(e);  
+		        	Customer customer=new Customer(); 
+		        	
+		        	customer.setId(rs.getInt(1));
+		        	customer.setFirstName(rs.getString(2));
+		        	customer.setLastName(rs.getString(3));
+		        	customer.setCellphone(rs.getString(4));
+		        	customer.setDocumentNumber(rs.getString(5));
+		        	customer.setId_rol(rs.getString(6));
+		       
+		        list.add(customer);  
 		        }  
 		        return list;  
 		        }  

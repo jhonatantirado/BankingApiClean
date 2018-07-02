@@ -144,10 +144,10 @@ public class CustomerApplicationService implements ICustomerApplicationService {
 		return notification;
 	}
 
-	@Override
+	@Transactional
 	public List<Customer> getLoginCustomer(String user,String password) {
-		
 		return customerDAO.getLoginCustomer(user,password);
+		//return customerDAO.getLoginCustomer(user,password);
 	}
 	
 	
