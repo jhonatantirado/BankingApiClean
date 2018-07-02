@@ -33,8 +33,8 @@ public class CustomerController{
 		@Autowired
 		ResponseHandler responseHandler;		
 				
-		//CrearCustomer				
-		@CrossOrigin(origins = "http://localhost:4200")
+					
+		//@CrossOrigin(origins = "http://localhost:4200")
 		@RequestMapping(method = RequestMethod.POST, path = "customer", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
 		public ResponseEntity<Object> createEmployee(@Valid @RequestBody CustomerDto customerDto) throws Exception {
 			try {
@@ -46,9 +46,9 @@ public class CustomerController{
 			}
 		}		
 		
-		//ListaIdCustomer
-		@CrossOrigin(origins = "http://localhost:4200")	
-		@GetMapping("/customer/{CustomerId}")
+		
+		//@CrossOrigin(origins = "http://localhost:4200")			
+		@RequestMapping(method = RequestMethod.GET, value = "/customer/{CustomerId}")
 		public ResponseEntity<Object> getCustomerById(@PathVariable(value="CustomerId") int customerid){
 		try {				
 				return customerApplicationService.performGetCustomerId(customerid);				
@@ -59,8 +59,7 @@ public class CustomerController{
 			}
 		}
 		
-		//UpdateIdCustomer
-		@PutMapping("/customer/{CustomerId}")
+		@RequestMapping(method = RequestMethod.PUT, value = "/customer/{CustomerId}")
 		public ResponseEntity<Object> updateCustomer(@PathVariable(value="CustomerId") Long customerid,@Valid @RequestBody CustomerDto customerDto){
 			try{				
 				return customerApplicationService.performUpdateCustomer(customerDto, customerid);
@@ -71,8 +70,7 @@ public class CustomerController{
 			}	
 		}
 		
-		//EliminarIdCustomer
-		@DeleteMapping("/customer/{CustomerId}")
+		@RequestMapping(method = RequestMethod.DELETE, value = "/customer/{CustomerId}")
 		public ResponseEntity<Object> deleteCustomer(@PathVariable(value="CustomerId") int customerid){
 		try{
 				return customerApplicationService.performDelCustomerId(customerid);					
@@ -84,18 +82,16 @@ public class CustomerController{
 		}
 		
 			
-		
-		@RequestMapping(value="/customer/Login/{user,password}")  
-	    public ModelAndView edit(@PathVariable String user , String password){  
-	        
+		@RequestMapping(value = "/login/{user}/{password}/", method = RequestMethod.GET)		
+	    public ModelAndView GetCustomerLogin(@PathVariable("user") String user ,@PathVariable("password") String password){  
+	        			
 	        List<Customer> list=customerApplicationService.getLoginCustomer(user,password);  
 	          
 	        return new ModelAndView("viewstudents","list",list);  
 	    }
-		
-		//ListaCustomer
-	    @CrossOrigin(origins = "http://localhost:4200")	
-	    @GetMapping("/customer")
+				
+	    //@CrossOrigin(origins = "http://localhost:4200")		  
+	    @RequestMapping(method = RequestMethod.GET, value = "/customer")
 		public List<Customer> getAllCustomer() throws Exception{
 		   return customerApplicationService.performCustomergetAll();
 		}

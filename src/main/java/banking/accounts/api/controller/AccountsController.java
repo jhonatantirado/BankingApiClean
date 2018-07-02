@@ -35,8 +35,7 @@ public class AccountsController {
 	@Autowired
 	ResponseHandler responseHandler;
 	
-	
-	     //CrearAccount			
+		     			
 			@CrossOrigin(origins = "http://localhost:4200")
 			@RequestMapping(method = RequestMethod.POST, path = "bankAccount", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
 			public ResponseEntity<Object> createAccount(@Valid @RequestBody BankAccountDto bankAccountDto, CustomerDto customerDto) throws Exception {
@@ -47,11 +46,10 @@ public class AccountsController {
 				} catch(Exception ex) {
 					return this.responseHandler.getAppExceptionResponse();
 				}
-			}		
+			}	
 	
-	      //ListaIdbankAccount
-			@CrossOrigin(origins = "http://localhost:4200")	
-			@GetMapping("/bankAccount/{AccountsId}")
+	     					
+			@RequestMapping(method = RequestMethod.GET, value = "/bankAccount/{AccountsId}")
 			public ResponseEntity<Object> getCustomerById(@PathVariable(value="AccountsId") int accountid){
 			try {				
 					return accountsApplicationService.performGetAccountsId(accountid);				
@@ -60,10 +58,9 @@ public class AccountsController {
 				} catch(Exception ex) {
 					return this.responseHandler.getAppExceptionResponse();
 				}
-			}
-	
-			//EliminarIdAccount
-			@DeleteMapping("/bankAccount/{AccountsId}")
+			}	
+			
+			@RequestMapping(method = RequestMethod.DELETE, value = "/bankAccount/{AccountsId}")
 			public ResponseEntity<Object> deleteCustomer(@PathVariable(value="AccountsId") int accountid){
 			try{
 					return accountsApplicationService.performDelAccountsId(accountid);					
@@ -73,10 +70,8 @@ public class AccountsController {
 				return this.responseHandler.getAppExceptionResponse();
 			}						
 			}
-			
-			
-			//UpdateIdAccount
-			@PutMapping("/bankAccount/{AccountsId}")
+						
+			@RequestMapping(method = RequestMethod.PUT, value = "/bankAccount/{AccountsId}")
 			public ResponseEntity<Object> updateCustomer(@PathVariable(value="AccountsId") Long accountid,@Valid @RequestBody BankAccountDto bankAccountDto){
 				try{				
 					return accountsApplicationService.performUpdateAccounts(bankAccountDto, accountid);
@@ -87,9 +82,8 @@ public class AccountsController {
 				}	
 			}
 			
-			//ListabankAccount
-		    @CrossOrigin(origins = "http://localhost:4200")	
-		    @GetMapping("/bankAccount")
+				   		   
+		    @RequestMapping(method = RequestMethod.GET, value = "/bankAccount")
 			public List<BankAccount> getAllCustomer() throws Exception{
 			   return accountsApplicationService.performAccountGetAll();
 			}

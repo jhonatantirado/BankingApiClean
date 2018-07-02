@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import banking.common.application.Notification;
 import banking.common.application.enumeration.RequestBodyType;
+import banking.customers.application.dao.CustomerDAO;
 import banking.customers.application.dto.CustomerDto;
 import banking.customers.domain.entity.Customer;
 import banking.customers.domain.repository.CustomerRepository;
@@ -26,7 +27,7 @@ public class CustomerApplicationService implements ICustomerApplicationService {
 	private CustomerRepositoryN customerRepositoryN;
 	
 	@Autowired
-	private banking.customers.application.dao.CustomerDAO CustomerDAO;
+	CustomerDAO customerDAO;
 	
 	@Transactional
 	public ResponseEntity<Object> performCreateCustomer(CustomerDto customerDto) throws Exception {		
@@ -145,8 +146,8 @@ public class CustomerApplicationService implements ICustomerApplicationService {
 
 	@Override
 	public List<Customer> getLoginCustomer(String user,String password) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return customerDAO.getLoginCustomer(user,password);
 	}
 	
 	
