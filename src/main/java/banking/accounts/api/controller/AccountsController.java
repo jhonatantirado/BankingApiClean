@@ -87,5 +87,10 @@ public class AccountsController {
 			public List<BankAccount> getAllAccount() throws Exception{
 			   return accountsApplicationService.performAccountGetAll();
 			}
+		    
+		    @RequestMapping(method = RequestMethod.GET, value = "/getAccountIdCustomer/{CustomerId}")
+			public List<BankAccount> getAccountIdCustomer(@PathVariable(value="CustomerId") Long customerid) throws Exception{
+			   return accountsApplicationService.getAccountIdCustomer(customerid);
+			}
 	
 }

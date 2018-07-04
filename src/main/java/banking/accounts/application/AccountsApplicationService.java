@@ -8,18 +8,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import banking.accounts.application.dao.AccountsDAO;
 import banking.accounts.application.dto.BankAccountDto;
 import banking.accounts.domain.entity.BankAccount;
 import banking.accounts.domain.repository.BankAccountRepositoryN;
 import banking.common.application.Notification;
 import banking.common.application.enumeration.RequestBodyType;
 import banking.customers.application.dto.CustomerDto;
+import banking.customers.domain.entity.Customer;
 
 @Service()
 public class AccountsApplicationService {
 
 	@Autowired
 	BankAccountRepositoryN bankAccountRepositoryN;
+	
+	@Autowired
+	AccountsDAO accountDAO;
 	
 	@Transactional
 	public ResponseEntity<Object> performCreateAccount(BankAccountDto bankAccountDto) throws Exception {		
@@ -94,7 +99,7 @@ public class AccountsApplicationService {
 		return bankAccountRepositoryN.findAll();
 	}
 	
-	
+	//getAccountIdCustomer
 	@Transactional
 	public BankAccount save(BankAccount bankAccount) {
 		return bankAccountRepositoryN.save(bankAccount);
@@ -108,6 +113,11 @@ public class AccountsApplicationService {
 	@Transactional
 	public BankAccount findOne(Long empid) {
 		return bankAccountRepositoryN.findOne(empid);
+	}
+	
+	@Transactional
+	public List<BankAccount> getAccountIdCustomer(Long customerid) {
+		return accountDAO.getAccountIdCustomer(customerid);		
 	}
 	
 	private Notification validation(BankAccountDto bankAccountDto) {
