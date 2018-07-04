@@ -40,7 +40,7 @@ public class CustomerApplicationService implements ICustomerApplicationService {
 		customer.setLastName(customerDto.getLastName());
 		customer.setBirthDate(customerDto.getBirthDate());
 		customer.setDocumentNumber(customerDto.getDocumentNumber());
-		customer.setActive(customerDto.getActive());
+		customer.setIsactive(false);
 		customer.setCellphone(customerDto.getCellphone());
 		customer.setEmail(customerDto.getEmail());
 		customer.setUser(customerDto.getUser());
@@ -66,7 +66,7 @@ public class CustomerApplicationService implements ICustomerApplicationService {
 		customer.setLastName(customerDto.getLastName());
 		customer.setBirthDate(customerDto.getBirthDate());
 		customer.setDocumentNumber(customerDto.getDocumentNumber());
-		customer.setActive(customerDto.getActive());
+		customer.setIsactive(customerDto.getIsactive());
 		customer.setCellphone(customerDto.getCellphone());
 		customer.setEmail(customerDto.getEmail());
 		customer.setUser(customerDto.getUser());
@@ -111,7 +111,7 @@ public class CustomerApplicationService implements ICustomerApplicationService {
 			return ResponseEntity.notFound().build();
 		}
 		this.delete(customer);		
-		return ResponseEntity.ok().build();	
+		return ResponseEntity.ok().body(customer);
 	}
 	
 

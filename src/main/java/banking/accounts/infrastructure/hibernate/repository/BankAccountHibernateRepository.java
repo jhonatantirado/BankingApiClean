@@ -27,7 +27,7 @@ public class BankAccountHibernateRepository extends BaseHibernateRepository<Bank
 		return (BankAccount) criteria.uniqueResult();
 	}
 	
-	public void save(BankAccount bankAccount) {
-		super.save(bankAccount);
-	}
+	//public void save(BankAccount bankAccount) {
+		//super.save(bankAccount);
+	//}
 }

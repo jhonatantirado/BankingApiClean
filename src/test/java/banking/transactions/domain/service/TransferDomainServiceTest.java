@@ -62,7 +62,7 @@ public class TransferDomainServiceTest {
 	public void performTransferErrorLockedDestinationAccount() throws Exception {
 		BankAccount originBankAccount = createAccount(originBankAccountNumber, new BigDecimal(100));
 		BankAccount destinationBankAccount = createAccount(destinationBankAccountNumber, new BigDecimal(10));
-		destinationBankAccount.lock();
+		destinationBankAccount.getIslocked();
 		transferDomainService.performTransfer(originBankAccount, destinationBankAccount, new BigDecimal(10));
 	}
 

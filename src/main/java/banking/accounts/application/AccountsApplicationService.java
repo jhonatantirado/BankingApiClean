@@ -22,17 +22,16 @@ public class AccountsApplicationService {
 	BankAccountRepositoryN bankAccountRepositoryN;
 	
 	@Transactional
-	public ResponseEntity<Object> performCreateAccount(BankAccountDto bankAccountDto,CustomerDto customerDto) throws Exception {		
+	public ResponseEntity<Object> performCreateAccount(BankAccountDto bankAccountDto) throws Exception {		
 		Notification notification = this.validation(bankAccountDto);
-        if (notification.hasErrors()) {
-            throw new IllegalArgumentException(notification.errorMessage());
-        }
-        BankAccount bankAccount = new BankAccount(); 
-    
-		bankAccount.setNumber(bankAccountDto.getNumber());
+		 if (notification.hasErrors()) {
+		  throw new IllegalArgumentException(notification.errorMessage());
+            }
+		BankAccount bankAccount = new BankAccount();         
+        bankAccount.setNumber(bankAccountDto.getNumber());
 		bankAccount.setBalance(bankAccountDto.getBalance());
-		bankAccount.setIsLocked(true);
-		//bankAccount.setCustomer(customerDto.getId());
+		bankAccount.setIslocked(false);
+		bankAccount.setCustomer_id(bankAccountDto.getCustomer_id());
 		BankAccount CreateBankAccountr= this.save(bankAccount);		
 		return ResponseEntity.ok().body(CreateBankAccountr);				
 	}	
@@ -46,11 +45,12 @@ public class AccountsApplicationService {
         BankAccount bankAccount = this.findOne(accountid);
 		if(bankAccount==null) {
 			return ResponseEntity.notFound().build();
-		}		
+		}	
+		
 		bankAccount.setNumber(bankAccountDto.getNumber());
 		bankAccount.setBalance(bankAccountDto.getBalance());
-		bankAccount.setIsLocked(true);
-		//bankAccount.setCustomer(customerDto.getId());
+		bankAccount.setIslocked(bankAccountDto.getIslocked());
+		bankAccount.setCustomer_id(bankAccountDto.getCustomer_id());
 		BankAccount updateBankAccount= this.save(bankAccount);		
 		return ResponseEntity.ok().body(updateBankAccount);
 		
@@ -85,7 +85,7 @@ public class AccountsApplicationService {
 			return ResponseEntity.notFound().build();
 		}
 		this.delete(bankAccount);		
-		return ResponseEntity.ok().build();	
+		return ResponseEntity.ok().body(bankAccount);
 	}
 	
 	
