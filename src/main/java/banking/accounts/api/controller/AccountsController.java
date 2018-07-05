@@ -25,7 +25,7 @@ import banking.customers.domain.entity.Customer;
 
 
 @RestController
-@RequestMapping("api/accounts/")
+@RequestMapping("api/Accounts/")
 public class AccountsController {
 	
 	@Autowired
@@ -36,7 +36,7 @@ public class AccountsController {
 	ResponseHandler responseHandler;
 	
 		     			
-			@CrossOrigin(origins = "http://localhost:4200")
+			@CrossOrigin(origins = "*")
 			@RequestMapping(method = RequestMethod.POST, path = "bankAccount", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
 			public ResponseEntity<Object> createAccount(@Valid @RequestBody BankAccountDto bankAccountDto) throws Exception {
 				try {
@@ -48,7 +48,7 @@ public class AccountsController {
 				}
 			}	
 	
-	     					
+			@CrossOrigin(origins = "*")				
 			@RequestMapping(method = RequestMethod.GET, value = "/bankAccount/{AccountsId}")
 			public ResponseEntity<Object> getAccountById(@PathVariable(value="AccountsId") int accountid){
 			try {				
@@ -60,6 +60,7 @@ public class AccountsController {
 				}
 			}	
 			
+			@CrossOrigin(origins = "*")
 			@RequestMapping(method = RequestMethod.DELETE, value = "/bankAccount/{AccountsId}")
 			public ResponseEntity<Object> deleteAccount(@PathVariable(value="AccountsId") int accountid){
 			try{
@@ -70,7 +71,8 @@ public class AccountsController {
 				return this.responseHandler.getAppExceptionResponse();
 			}						
 			}
-						
+				
+			@CrossOrigin(origins = "*")
 			@RequestMapping(method = RequestMethod.PUT, value = "/bankAccount/{AccountsId}")
 			public ResponseEntity<Object> updateAccount(@PathVariable(value="AccountsId") Long accountid,@Valid @RequestBody BankAccountDto bankAccountDto){
 				try{				
@@ -82,12 +84,13 @@ public class AccountsController {
 				}	
 			}
 			
-				   		   
+			@CrossOrigin(origins = "*")   		   
 		    @RequestMapping(method = RequestMethod.GET, value = "/bankAccount")
 			public List<BankAccount> getAllAccount() throws Exception{
 			   return accountsApplicationService.performAccountGetAll();
 			}
-		    
+			
+			@CrossOrigin(origins = "*")
 		    @RequestMapping(method = RequestMethod.GET, value = "/getAccountIdCustomer/{CustomerId}")
 			public List<BankAccount> getAccountIdCustomer(@PathVariable(value="CustomerId") Long customerid) throws Exception{
 			   return accountsApplicationService.getAccountIdCustomer(customerid);
