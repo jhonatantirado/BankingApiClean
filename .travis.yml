@@ -1,6 +1,6 @@
 language: java
 sudo: false
-script: mvn clean verify
+script: mvn clean
 deploy:
    provider: cloudfoundry
    username: jhonatantiradotiradodeep@gmail.com
