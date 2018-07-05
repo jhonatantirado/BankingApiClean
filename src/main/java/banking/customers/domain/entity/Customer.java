@@ -10,8 +10,8 @@ public class Customer {
 	    private String firstName;
 	    private String lastName;
 	    private Date birthDate;
-	    private String documentNumber;
-	    private int active;
+	    private String documentNumber;  
+		private Boolean isactive;
 	    private String cellphone;
 	    private String email;
 	    private String user;
@@ -27,7 +27,14 @@ public class Customer {
 		this.id_rol = id_rol;
 	}
 
-	  
+	public Boolean getIsactive() {
+		return isactive;
+	}
+
+	public void setIsactive(Boolean isactive) {
+		this.isactive = isactive;
+	}
+
 	public String getPassword() {
 		return password;
 	}
@@ -79,13 +86,7 @@ public void setUser(String user) {
 		
     
    
-    public int getActive() {
-		return active;
-	}
-
-	public void setActive(int active) {
-		this.active = active;
-	}
+    
 
 	private Set<BankAccount> bankAccounts;
 

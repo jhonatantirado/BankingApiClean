@@ -8,12 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import banking.accounts.application.dao.AccountsDAO;
 import banking.accounts.application.dto.BankAccountDto;
 import banking.accounts.domain.entity.BankAccount;
 import banking.accounts.domain.repository.BankAccountRepositoryN;
 import banking.common.application.Notification;
 import banking.common.application.enumeration.RequestBodyType;
 import banking.customers.application.dto.CustomerDto;
+import banking.customers.domain.entity.Customer;
 
 @Service()
 public class AccountsApplicationService {
@@ -21,18 +23,20 @@ public class AccountsApplicationService {
 	@Autowired
 	BankAccountRepositoryN bankAccountRepositoryN;
 	
+	@Autowired
+	AccountsDAO accountDAO;
+	
 	@Transactional
-	public ResponseEntity<Object> performCreateAccount(BankAccountDto bankAccountDto,CustomerDto customerDto) throws Exception {		
+	public ResponseEntity<Object> performCreateAccount(BankAccountDto bankAccountDto) throws Exception {		
 		Notification notification = this.validation(bankAccountDto);
-        if (notification.hasErrors()) {
-            throw new IllegalArgumentException(notification.errorMessage());
-        }
-        BankAccount bankAccount = new BankAccount(); 
-    
-		bankAccount.setNumber(bankAccountDto.getNumber());
+		 if (notification.hasErrors()) {
+		  throw new IllegalArgumentException(notification.errorMessage());
+            }
+		BankAccount bankAccount = new BankAccount();         
+        bankAccount.setNumber(bankAccountDto.getNumber());
 		bankAccount.setBalance(bankAccountDto.getBalance());
-		bankAccount.setIsLocked(true);
-		//bankAccount.setCustomer(customerDto.getId());
+		bankAccount.setIslocked(false);
+		bankAccount.setCustomer_id(bankAccountDto.getCustomer_id());
 		BankAccount CreateBankAccountr= this.save(bankAccount);		
 		return ResponseEntity.ok().body(CreateBankAccountr);				
 	}	
@@ -46,11 +50,12 @@ public class AccountsApplicationService {
         BankAccount bankAccount = this.findOne(accountid);
 		if(bankAccount==null) {
 			return ResponseEntity.notFound().build();
-		}		
+		}	
+		
 		bankAccount.setNumber(bankAccountDto.getNumber());
 		bankAccount.setBalance(bankAccountDto.getBalance());
-		bankAccount.setIsLocked(true);
-		//bankAccount.setCustomer(customerDto.getId());
+		bankAccount.setIslocked(bankAccountDto.getIslocked());
+		bankAccount.setCustomer_id(bankAccountDto.getCustomer_id());
 		BankAccount updateBankAccount= this.save(bankAccount);		
 		return ResponseEntity.ok().body(updateBankAccount);
 		
@@ -85,7 +90,7 @@ public class AccountsApplicationService {
 			return ResponseEntity.notFound().build();
 		}
 		this.delete(bankAccount);		
-		return ResponseEntity.ok().build();	
+		return ResponseEntity.ok().body(bankAccount);
 	}
 	
 	
@@ -94,7 +99,7 @@ public class AccountsApplicationService {
 		return bankAccountRepositoryN.findAll();
 	}
 	
-	
+	//getAccountIdCustomer
 	@Transactional
 	public BankAccount save(BankAccount bankAccount) {
 		return bankAccountRepositoryN.save(bankAccount);
@@ -108,6 +113,11 @@ public class AccountsApplicationService {
 	@Transactional
 	public BankAccount findOne(Long empid) {
 		return bankAccountRepositoryN.findOne(empid);
+	}
+	
+	@Transactional
+	public List<BankAccount> getAccountIdCustomer(Long customerid) {
+		return accountDAO.getAccountIdCustomer(customerid);		
 	}
 	
 	private Notification validation(BankAccountDto bankAccountDto) {

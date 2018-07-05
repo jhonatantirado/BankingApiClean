@@ -1,1 +1,1 @@
- INSERT INTO customer(customer_id, first_name, last_name,birth_date,document_number,isactive,cellphone,email,user,password,id_rol) VALUES(1, 'Gustavo', 'Osorio','2018-07-01','45664829',true,'963980579','jgsistem@gmail.com','jg5','12325',1);
+ INSERT INTO customer(customer_id, first_name, last_name,birth_date,document_number,isactive,cellphone,email,user,password,id_rol) VALUES(1, 'Gustavo', 'Osorio','2018-07-01','45664829',FALSE,'963980579','jgsistem@gmail.com','jg5','12325',1);

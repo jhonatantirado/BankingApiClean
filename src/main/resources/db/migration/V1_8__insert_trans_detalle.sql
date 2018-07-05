@@ -1,0 +1,1 @@
+INSERT INTO trans_detalle(id_trans, numb_origen, numb_destino, balance,islocked,bank_account_id, customer_id) VALUES(1, '123-456-002','123-456-003', 2,FALSE,1,1);

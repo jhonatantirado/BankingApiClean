@@ -13,17 +13,21 @@ public class CustomerDto  extends RequestBaseDto {
     private String lastName;
     private Date birthDate;
     private String documentNumber;
-    private int active;
-    private String cellphone;
+    private Boolean isactive; 
+	private String cellphone;
     private String email;
     private String user;
     private String password; 
     private String id_rol;	
 	  
     
-    public CustomerDto() {
+    public Boolean getIsactive() {
+		return isactive;
 	}
-	
+
+	public void setIsactive(Boolean isactive) {
+		this.isactive = isactive;
+	}
     
     
 	 public String getPassword() {
@@ -65,13 +69,7 @@ public class CustomerDto  extends RequestBaseDto {
 		this.cellphone = cellphone;
 	}
 
-	public int getActive() {
-		return active;
-	}
-
-	public void setActive(int active) {
-		this.active = active;
-	}
+	
 
 	public String getDocumentNumber() {
 		return documentNumber;

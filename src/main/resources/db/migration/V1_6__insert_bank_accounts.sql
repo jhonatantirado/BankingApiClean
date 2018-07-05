@@ -1,2 +1,2 @@
-INSERT INTO bank_account(bank_account_id, number, balance, islocked, customer_id) VALUES(1, '123-456-001', 1500, true, 1);
-INSERT INTO bank_account(bank_account_id, number, balance, islocked, customer_id) VALUES(2, '123-456-002', 1800, true, 1);
+INSERT INTO bank_account(bank_account_id, number, balance, islocked, customer_id) VALUES(1, '123-456-001', 1500, FALSE, 1);
+INSERT INTO bank_account(bank_account_id, number, balance, islocked, customer_id) VALUES(2, '123-456-002', 1800, FALSE, 1);

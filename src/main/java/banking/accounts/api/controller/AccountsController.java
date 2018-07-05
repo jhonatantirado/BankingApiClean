@@ -38,9 +38,9 @@ public class AccountsController {
 		     			
 			@CrossOrigin(origins = "http://localhost:4200")
 			@RequestMapping(method = RequestMethod.POST, path = "bankAccount", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
-			public ResponseEntity<Object> createAccount(@Valid @RequestBody BankAccountDto bankAccountDto, CustomerDto customerDto) throws Exception {
+			public ResponseEntity<Object> createAccount(@Valid @RequestBody BankAccountDto bankAccountDto) throws Exception {
 				try {
-				return accountsApplicationService.performCreateAccount(bankAccountDto,customerDto);  			
+				return accountsApplicationService.performCreateAccount(bankAccountDto);  			
 				} catch(IllegalArgumentException ex) {
 					return this.responseHandler.getAppCustomErrorResponse(ex.getMessage());
 				} catch(Exception ex) {
@@ -50,7 +50,7 @@ public class AccountsController {
 	
 	     					
 			@RequestMapping(method = RequestMethod.GET, value = "/bankAccount/{AccountsId}")
-			public ResponseEntity<Object> getCustomerById(@PathVariable(value="AccountsId") int accountid){
+			public ResponseEntity<Object> getAccountById(@PathVariable(value="AccountsId") int accountid){
 			try {				
 					return accountsApplicationService.performGetAccountsId(accountid);				
 				} catch(IllegalArgumentException ex) {
@@ -61,7 +61,7 @@ public class AccountsController {
 			}	
 			
 			@RequestMapping(method = RequestMethod.DELETE, value = "/bankAccount/{AccountsId}")
-			public ResponseEntity<Object> deleteCustomer(@PathVariable(value="AccountsId") int accountid){
+			public ResponseEntity<Object> deleteAccount(@PathVariable(value="AccountsId") int accountid){
 			try{
 					return accountsApplicationService.performDelAccountsId(accountid);					
 			} catch(IllegalArgumentException ex) {
@@ -72,7 +72,7 @@ public class AccountsController {
 			}
 						
 			@RequestMapping(method = RequestMethod.PUT, value = "/bankAccount/{AccountsId}")
-			public ResponseEntity<Object> updateCustomer(@PathVariable(value="AccountsId") Long accountid,@Valid @RequestBody BankAccountDto bankAccountDto){
+			public ResponseEntity<Object> updateAccount(@PathVariable(value="AccountsId") Long accountid,@Valid @RequestBody BankAccountDto bankAccountDto){
 				try{				
 					return accountsApplicationService.performUpdateAccounts(bankAccountDto, accountid);
 				} catch(IllegalArgumentException ex) {
@@ -84,8 +84,13 @@ public class AccountsController {
 			
 				   		   
 		    @RequestMapping(method = RequestMethod.GET, value = "/bankAccount")
-			public List<BankAccount> getAllCustomer() throws Exception{
+			public List<BankAccount> getAllAccount() throws Exception{
 			   return accountsApplicationService.performAccountGetAll();
+			}
+		    
+		    @RequestMapping(method = RequestMethod.GET, value = "/getAccountIdCustomer/{CustomerId}")
+			public List<BankAccount> getAccountIdCustomer(@PathVariable(value="CustomerId") Long customerid) throws Exception{
+			   return accountsApplicationService.getAccountIdCustomer(customerid);
 			}
 	
 }
