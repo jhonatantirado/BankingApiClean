@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="banking.transdetalle.domain.entity">
+	<class name="transDetalle" table="trans_detalle">
+        <id name="id" column="id_trans">
+            <generator class="native"/>
+        </id>
+        <property name="numb_origen" column="numb_origen" />
+        <property name="numb_destino" column="numb_destino" />
+        <property name="balance" column="balance" />        
+        <property name="islocked" column="islocked" />
+        <property name="bank_account_id" column="bank_account_id" />
+        <property name="customer_id" column="customer_id" />
+    </class> 
+</hibernate-mapping>	

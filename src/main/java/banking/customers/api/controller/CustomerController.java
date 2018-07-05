@@ -34,7 +34,7 @@ public class CustomerController{
 		ResponseHandler responseHandler;		
 				
 					
-		//@CrossOrigin(origins = "http://localhost:4200")
+		@CrossOrigin(origins = "*")
 		@RequestMapping(method = RequestMethod.POST, path = "customer", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
 		public ResponseEntity<Object> createEmployee(@Valid @RequestBody CustomerDto customerDto) throws Exception {
 			try {
@@ -47,7 +47,7 @@ public class CustomerController{
 		}		
 		
 		
-		//@CrossOrigin(origins = "http://localhost:4200")			
+		@CrossOrigin(origins = "*")			
 		@RequestMapping(method = RequestMethod.GET, value = "/customer/{CustomerId}")
 		public ResponseEntity<Object> getCustomerById(@PathVariable(value="CustomerId") int customerid){
 		try {				
@@ -59,6 +59,7 @@ public class CustomerController{
 			}
 		}
 		
+		@CrossOrigin(origins = "*")
 		@RequestMapping(method = RequestMethod.PUT, value = "/customer/{CustomerId}")
 		public ResponseEntity<Object> updateCustomer(@PathVariable(value="CustomerId") Long customerid,@Valid @RequestBody CustomerDto customerDto){
 			try{				
@@ -70,6 +71,7 @@ public class CustomerController{
 			}	
 		}
 		
+		@CrossOrigin(origins = "*")
 		@RequestMapping(method = RequestMethod.DELETE, value = "/customer/{CustomerId}")
 		public ResponseEntity<Object> deleteCustomer(@PathVariable(value="CustomerId") int customerid){
 		try{
@@ -81,15 +83,13 @@ public class CustomerController{
 		}						
 		}
 		
-			
+		@CrossOrigin(origins = "*")	
 		@RequestMapping(method = RequestMethod.GET, value = "/login/{user}/{password}")
 	    public List<Customer> GetCustomerLogin(@PathVariable(value="user") String user,@PathVariable(value="password") String password){  
-	        			
-			return customerApplicationService.getLoginCustomer(user,password);  
-				        
+	        return customerApplicationService.getLoginCustomer(user,password);  
 	    }
 				
-	    //@CrossOrigin(origins = "http://localhost:4200")		  
+		@CrossOrigin(origins = "*")		  
 	    @RequestMapping(method = RequestMethod.GET, value = "/customer")
 		public List<Customer> getAllCustomer() throws Exception{
 		   return customerApplicationService.performCustomergetAll();
