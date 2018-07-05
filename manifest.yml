@@ -1,0 +1,7 @@
+---
+applications:
+- name: java-banking-api
+  path: /home/travis/build/jhonatantirado/BankingApiClean/target/java-banking-api-1.0.jar
+  memory: 1024M
+  instances: 1
+  random-route: true

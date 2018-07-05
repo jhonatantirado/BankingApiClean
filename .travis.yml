@@ -1,0 +1,16 @@
+language: java
+sudo: false
+script: mvn clean verify
+deploy:
+   provider: cloudfoundry
+   username: jhonatantiradotiradodeep@gmail.com
+   password:
+	secure: "fl/5YqTezgydbZm6UeYAzahoQUk33p/uNUEYo8cyWaM52938uvZdFbCfd5iU1mWGpgAQqHpcUcI+i5D3nYZu7vMXu/kglugF6ozB//IgireFM
+GgXFktm3H3wFEASoc7I0ZZw6GCZLWXbfrJCluCyOZUE5hJ2OqmVg+ItBMVIKV1ZHtJ/0cUb29HwgUfXGo2GrgvZNKMCNbjd0qmhnwnQ/tCT4Dd5ICSe/F+MZ
+eljLkfxdbz+6A7yTrfBgJ2v0RVtN3zEymyubxq6lbRdaYMls288tsBGoz66W9tOUfC5wlzGTEdoafIUt+puqfekQ4WrY7bAarHKXk940Bjgsel5rNNElaM2u
+sPEOCx+XeumN8zl/CIHZmPIN/IWoQlbReI8RFSfKIqledw+5qEAVAnMs/T21m5/P2CdVVh4+CDGyI39N1p+GQ6jM5xU6oLVfZvUTSkIp7BMB7V3jW16ERuQU
+1SAk/FGY9BGkFyjW41nfRG4oXUgQkJbXeH0sP0RjONzmaaT1zSqdT1AczrMwtHgUmrnJYWbwSoknUQXsnp5mUeJoXDb5xEj6KFCEZxSXUoGLe4ZBAaTjpZTQ
+aIlfyibVGEZKbPPTIZT95zwv4LvX18NIlRCMj2NccU3rm5ZkgtZvvkgp3e4TGtrCepzVjaHHVWImryhvIjIE2tUQy/DaD8="
+   api: https://api.run.pivotal.io
+   organization: kipubit
+   space: development

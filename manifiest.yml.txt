@@ -1,7 +1,0 @@
----
-applications:
-- name: java-banking-api
-  path: /home/travis/build/jgsistem/BankingApiClean/target/clean-architecture-0.0.1-SNAPSHOT.jar
-  memory: 1024M
-  instances: 1
-  random-route: true
