@@ -95,7 +95,7 @@ public class AccountsApplicationService {
 	
 	
 	@Transactional
-	public List<BankAccount> performAccountGetAll()  throws Exception {
+	public List<BankAccount> performAccountGetAll(int offset, int limit)  throws Exception {
 		return bankAccountRepositoryN.findAll();
 	}
 	

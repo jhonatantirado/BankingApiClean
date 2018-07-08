@@ -36,7 +36,7 @@ public class CustomerController{
 					
 		@CrossOrigin(origins = "*")
 		@RequestMapping(method = RequestMethod.POST, path = "customer", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
-		public ResponseEntity<Object> createEmployee(@Valid @RequestBody CustomerDto customerDto) throws Exception {
+		public ResponseEntity<Object> createcustomer(@Valid @RequestBody CustomerDto customerDto) throws Exception {
 			try {
 			return customerApplicationService.performCreateCustomer(customerDto);  			
 			} catch(IllegalArgumentException ex) {
@@ -49,7 +49,7 @@ public class CustomerController{
 		
 		@CrossOrigin(origins = "*")			
 		@RequestMapping(method = RequestMethod.GET, value = "/customer/{CustomerId}")
-		public ResponseEntity<Object> getCustomerById(@PathVariable(value="CustomerId") int customerid){
+		public ResponseEntity<Object> getidcustomer(@PathVariable(value="CustomerId") int customerid){
 		try {				
 				return customerApplicationService.performGetCustomerId(customerid);				
 			} catch(IllegalArgumentException ex) {
@@ -61,7 +61,7 @@ public class CustomerController{
 		
 		@CrossOrigin(origins = "*")
 		@RequestMapping(method = RequestMethod.PUT, value = "/customer/{CustomerId}")
-		public ResponseEntity<Object> updateCustomer(@PathVariable(value="CustomerId") Long customerid,@Valid @RequestBody CustomerDto customerDto){
+		public ResponseEntity<Object> updatecustomer(@PathVariable(value="CustomerId") Long customerid,@Valid @RequestBody CustomerDto customerDto){
 			try{				
 				return customerApplicationService.performUpdateCustomer(customerDto, customerid);
 			} catch(IllegalArgumentException ex) {
@@ -73,7 +73,7 @@ public class CustomerController{
 		
 		@CrossOrigin(origins = "*")
 		@RequestMapping(method = RequestMethod.DELETE, value = "/customer/{CustomerId}")
-		public ResponseEntity<Object> deleteCustomer(@PathVariable(value="CustomerId") int customerid){
+		public ResponseEntity<Object> deletedcustomer(@PathVariable(value="CustomerId") int customerid){
 		try{
 				return customerApplicationService.performDelCustomerId(customerid);					
 		} catch(IllegalArgumentException ex) {
@@ -85,13 +85,13 @@ public class CustomerController{
 		
 		@CrossOrigin(origins = "*")	
 		@RequestMapping(method = RequestMethod.GET, value = "/login/{user}/{password}")
-	    public List<Customer> GetCustomerLogin(@PathVariable(value="user") String user,@PathVariable(value="password") String password){  
+	    public List<Customer> getcustomerlogin(@PathVariable(value="user") String user,@PathVariable(value="password") String password){  
 	        return customerApplicationService.getLoginCustomer(user,password);  
 	    }
 				
 		@CrossOrigin(origins = "*")		  
 	    @RequestMapping(method = RequestMethod.GET, value = "/customer")
-		public List<Customer> getAllCustomer() throws Exception{
-		   return customerApplicationService.performCustomergetAll();
+		public List<Customer> getAllCustomer(int offset, int limit) throws Exception{		
+		   return customerApplicationService.performCustomergetAll(offset, limit);
 		}
 	}

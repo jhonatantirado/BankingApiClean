@@ -9,9 +9,8 @@
         </id>
         <property name="numb_origen" column="numb_origen" />
         <property name="numb_destino" column="numb_destino" />
-        <property name="balance" column="balance" />        
-        <property name="islocked" column="islocked" />
-        <property name="bank_account_id" column="bank_account_id" />
+        <property name="monto" column="monto" /> 
+         <property name="fecha" column="fecha" /> 
         <property name="customer_id" column="customer_id" />
     </class> 
 </hibernate-mapping>	
