@@ -1,9 +1,9 @@
 package banking.transactions.application;
 
-import java.math.BigDecimal;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,6 @@ import banking.common.application.enumeration.RequestBodyType;
 import banking.transactions.application.dto.RequestBankTransferDto;
 import banking.transactions.domain.service.TransferDomainService;
 import banking.transdetalle.application.transdetalleApplicationService;
-import banking.transdetalle.application.dto.transDetalleDto;
 import banking.transdetalle.domain.entity.transDetalle;
 
 @Service()
@@ -24,9 +23,9 @@ public class TransactionApplicationService {
 
 	@Autowired
 	private TransferDomainService transferDomainService;
-
-     @Autowired
-     private transdetalleApplicationService ttransdetalleApplicationService;
+	
+	@Autowired
+    private transdetalleApplicationService ttransdetalleApplicationService;
 
 	@Transactional
 	public void performTransfer(RequestBankTransferDto requestBankTransferDto) throws Exception {
@@ -38,16 +37,22 @@ public class TransactionApplicationService {
 		BankAccount destinationAccount = this.bankAccountRepository.findByNumberLocked(requestBankTransferDto.getToAccountNumber());
 		this.transferDomainService.performTransfer(originAccount, destinationAccount, requestBankTransferDto.getAmount());
 		this.bankAccountRepository.save(originAccount);
-		this.bankAccountRepository.save(destinationAccount);		
-		BigDecimal unCentavo = new BigDecimal("0.01");
+		this.bankAccountRepository.save(destinationAccount);
+		
 		transDetalle ttransDetalle = new transDetalle();		
 		ttransDetalle.setNumb_origen(originAccount.getNumber());
 	    ttransDetalle.setNumb_destino(destinationAccount.getNumber());
-	    ttransDetalle.setBalance(requestBankTransferDto.getAmount());
-	    ttransDetalle.setIslocked(false);
-	    ttransDetalle.setBank_account_id(originAccount.getId());
+	    ttransDetalle.setMonto(requestBankTransferDto.getAmount());
+	    ttransDetalle.setFecha(FechaHora());
 	    ttransDetalle.setCustomer_id(originAccount.getCustomer_id());	   
-		ttransdetalleApplicationService.saves(ttransDetalle);		
+	    ttransdetalleApplicationService.saves(ttransDetalle);	
+	}
+	
+	private Date FechaHora(){		
+		Date utilDate = new Date(); 
+		long lnMilisegundos = utilDate.getTime();
+		Timestamp sqlTimestamp = new Timestamp(lnMilisegundos);			
+		return sqlTimestamp;
 	}
 	
 	private Notification validation(RequestBankTransferDto requestBankTransferDto) {

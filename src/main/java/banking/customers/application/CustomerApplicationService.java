@@ -122,7 +122,7 @@ public class CustomerApplicationService implements ICustomerApplicationService {
 	
 	
 	@Transactional
-	public List<Customer> performCustomergetAll()  throws Exception {
+	public List<Customer> performCustomergetAll(int offset, int limit)  throws Exception {
 		return customerRepositoryN.findAll();
 	}
 	

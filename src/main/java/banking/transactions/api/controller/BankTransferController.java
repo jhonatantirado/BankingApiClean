@@ -55,7 +55,7 @@ public class BankTransferController{
 	}
 	
 	@CrossOrigin(origins = "*")
-    @RequestMapping(method = RequestMethod.GET, value = "/getAccountIdCustomerTransfers/{CustomerId}")
+    @RequestMapping(method = RequestMethod.GET, value = "/transfers/{CustomerId}")
 	public List<transDetalle> getAccountIdCustomer(@PathVariable(value="CustomerId") Long customerid) throws Exception{
 		return ttransdetalleApplicationService.getCustomertransDetalle(customerid);
 	}
