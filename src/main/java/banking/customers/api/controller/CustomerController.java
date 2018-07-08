@@ -91,7 +91,7 @@ public class CustomerController{
 				
 		@CrossOrigin(origins = "*")		  
 	    @RequestMapping(method = RequestMethod.GET, value = "/customer")
-		public List<Customer> getAllCustomer() throws Exception{
-		   return customerApplicationService.performCustomergetAll();
+		public List<Customer> getAllCustomer(int offset, int limit) throws Exception{		
+		   return customerApplicationService.performCustomergetAll(offset, limit);
 		}
 	}

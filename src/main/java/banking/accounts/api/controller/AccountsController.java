@@ -82,8 +82,8 @@ public class AccountsController {
 			
 			@CrossOrigin(origins = "*")   		   
 		    @RequestMapping(method = RequestMethod.GET, value = "/bankAccount")
-			public List<BankAccount> getallaccount() throws Exception{
-			   return accountsApplicationService.performAccountGetAll();
+			public List<BankAccount> getallaccount(int offset, int limit) throws Exception{
+			   return accountsApplicationService.performAccountGetAll(offset, limit);
 			}
 			
 			@CrossOrigin(origins = "*")

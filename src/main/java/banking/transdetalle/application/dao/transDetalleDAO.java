@@ -1,9 +1,13 @@
 package banking.transdetalle.application.dao;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -36,7 +40,8 @@ JdbcTemplate template;
 	public List<transDetalle> getCustomertransDetalle(Long customerid) {			
 			String sql="SELECT id_trans, numb_origen,numb_destino,monto, fecha,customer_id FROM trans_detalle t WHERE t.customer_id  = " +"'"+customerid+"'" + "  ORDER BY t.fecha DESC LIMIT 20" ;
 			System.out.println(sql);
-			return template.query(sql,new ResultSetExtractor<List<transDetalle>>(){  
+				
+			return template.query(sql,new ResultSetExtractor<List<transDetalle>>(){ 
 			    public List<transDetalle> extractData(ResultSet rs) throws SQLException,  
 			            DataAccessException {  
 			       List<transDetalle> list=new ArrayList<transDetalle>(); 
