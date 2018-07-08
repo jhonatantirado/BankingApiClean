@@ -8,20 +8,24 @@ public class transDetalle {
 	private long id;
 	private String numb_origen;
     private String numb_destino;
-    private BigDecimal balance;
-    
-	
-	private Boolean islocked;  
-	private long bank_account_id;
+    private BigDecimal monto;
+	private Date fecha;	
 	private long customer_id;
 	
-
-	public BigDecimal getBalance() {
-		return balance;
+	public BigDecimal getMonto() {
+		return monto;
 	}
-	public void setBalance(BigDecimal balance) {
-		this.balance = balance;
+	public void setMonto(BigDecimal monto) {
+		this.monto = monto;
 	}
+	
+	public Date getFecha() {
+		return fecha;
+	}
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
+	}
+	
 	    public long getId() {
 			return id;
 		}
@@ -41,18 +45,7 @@ public class transDetalle {
 			this.numb_destino = numb_destino;
 		}
 		
-		public Boolean getIslocked() {
-			return islocked;
-		}
-		public void setIslocked(Boolean islocked) {
-			this.islocked = islocked;
-		}
-		public long getBank_account_id() {
-			return bank_account_id;
-		}
-		public void setBank_account_id(long bank_account_id) {
-			this.bank_account_id = bank_account_id;
-		}
+		
 		public long getCustomer_id() {
 			return customer_id;
 		}
