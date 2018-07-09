@@ -120,11 +120,32 @@ public class AccountsApplicationService {
 		return accountDAO.getAccountIdCustomer(customerid);		
 	}
 	
+	@Transactional
+	public List<BankAccount> getallAccount(int offset, int limit) {
+		return accountDAO.getallAccount(offset, limit);		
+	}
+	
 	private Notification validation(BankAccountDto bankAccountDto) {
 		Notification notification = new Notification();
 		if (bankAccountDto == null || bankAccountDto.getRequestBodyType() == RequestBodyType.INVALID) {
 			notification.addError("Invalid JSON data in request body.");
 		}
 		return notification;
+	}
+	
+	private void validationN(int offset, int limit) {		
+		if (offset <= 0 || limit <= 0 ) {
+			//notification.addError("Invalid JSON data in request body.");
+		}
+		//return notification;
+	}
+	
+	private static boolean isNumeric(String cadena){
+		try {
+			Integer.parseInt(cadena);
+			return true;
+		} catch (NumberFormatException nfe){
+			return false;
+		}
 	}
 }

@@ -149,4 +149,10 @@ public class CustomerApplicationService implements ICustomerApplicationService {
 		return customerDAO.getLoginCustomer(user,password);		
 	}
 	
+	@Transactional
+	public List<Customer> getallCustomer(int offset, int limit) {
+		return customerDAO.getallCustomer(offset,limit);		
+	}
+	
+	
 }

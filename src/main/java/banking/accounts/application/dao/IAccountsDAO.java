@@ -7,4 +7,7 @@ import banking.accounts.domain.entity.BankAccount;
 
 public interface IAccountsDAO {
 	public List<BankAccount> getAccountIdCustomer(Long id_customer);
+	
+	public List<BankAccount> getallAccount(int offset, int limit);
+	
 }
