@@ -21,14 +21,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import banking.common.api.controller.ResponseHandler;
 import banking.customers.application.CustomerApplicationService;
+import banking.customers.application.dao.CustomerDAO;
 import banking.customers.application.dto.CustomerDto;
 import banking.customers.domain.entity.Customer;
+import banking.customers.domain.repository.CustomerRepositoryN;
 
 @RestController
 @RequestMapping("api/customers/")
 public class CustomerController{		
 		@Autowired
 		CustomerApplicationService customerApplicationService;
+		
+	
 		
 		@Autowired
 		ResponseHandler responseHandler;		
@@ -81,17 +85,18 @@ public class CustomerController{
 		} catch(Exception ex) {
 			return this.responseHandler.getAppExceptionResponse();
 		}						
-		}
+		}		
 		
-		@CrossOrigin(origins = "*")	
-		@RequestMapping(method = RequestMethod.GET, value = "/login/{user}/{password}")
-	    public List<Customer> getcustomerlogin(@PathVariable(value="user") String user,@PathVariable(value="password") String password){  
-	        return customerApplicationService.getLoginCustomer(user,password);  
-	    }
 				
 		@CrossOrigin(origins = "*")		  
 	    @RequestMapping(method = RequestMethod.GET, value = "/customer")
 		public List<Customer> getAllCustomer(int offset, int limit) throws Exception{		
 		   return customerApplicationService.getallCustomer(offset, limit);
+		}
+		
+		@CrossOrigin(origins = "*")		  
+	    @RequestMapping(method = RequestMethod.GET, value = "/findByDocumentNumber")
+		public List<Customer> getAllCustomer(String documentNumber) throws Exception{		
+		   return customerApplicationService.getNrodocCustomer(documentNumber);
 		}
 	}

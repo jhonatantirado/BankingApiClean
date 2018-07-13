@@ -86,6 +86,12 @@ public class AccountsController {
 			   return accountsApplicationService.getallAccount(offset, limit);
 			}
 			
+			@CrossOrigin(origins = "*")   		   
+		    @RequestMapping(method = RequestMethod.GET, value = "/findByAccountNumber")
+			public List<BankAccount> findByAccountNumber(String accountNumber) throws Exception{
+			   return accountsApplicationService.getAccountNroCuenta(accountNumber);
+			}
+			
 			@CrossOrigin(origins = "*")
 		    @RequestMapping(method = RequestMethod.GET, value = "/customer/{CustomerId}")
 			public List<BankAccount> getidcustomer(@PathVariable(value="CustomerId") Long customerid) throws Exception{

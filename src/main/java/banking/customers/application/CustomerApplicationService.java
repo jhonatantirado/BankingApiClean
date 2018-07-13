@@ -154,5 +154,13 @@ public class CustomerApplicationService implements ICustomerApplicationService {
 		return customerDAO.getallCustomer(offset,limit);		
 	}
 	
+	@Transactional
+	public List<Customer> getNrodocCustomer(String documentNumber) {
+		return customerDAO.getNrodocCustomer(documentNumber);		
+	}
+
+	
+	
+	
 	
 }
