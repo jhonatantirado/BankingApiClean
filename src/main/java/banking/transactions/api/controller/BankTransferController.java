@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import banking.common.api.controller.ResponseHandler;
+import banking.customers.application.CustomerApplicationService;
+import banking.customers.domain.entity.Customer;
 import banking.transactions.application.TransactionApplicationService;
 import banking.transactions.application.dto.RequestBankTransferDto;
 import banking.transdetalle.application.transdetalleApplicationService;
@@ -27,7 +29,10 @@ public class BankTransferController{
 	ResponseHandler responseHandler;
 	
 	@Autowired
-	transdetalleApplicationService ttransdetalleApplicationService;
+	transdetalleApplicationService ttransdetalleApplicationService;	
+	
+	@Autowired
+	CustomerApplicationService customerApplicationService;
 
 	@CrossOrigin(origins = "*")
 	@RequestMapping(method = RequestMethod.POST, path = "transfers", consumes = "application/json; charset=UTF-8", produces = "application/json; charset=UTF-8")
@@ -40,18 +45,12 @@ public class BankTransferController{
 		} catch(Exception ex) {
 			return this.responseHandler.getAppExceptionResponse();
 		}
-	}	
+	}		
 	
-	@CrossOrigin(origins = "*")	
-	@RequestMapping(method = RequestMethod.GET, path = "index", produces = "application/json; charset=UTF-8")
-	public ResponseEntity<Object> Index() throws Exception {
-		try {
-			return this.responseHandler.getOkCommandResponse("Hola Mundo!!!");
-		} catch(IllegalArgumentException ex) {
-			return this.responseHandler.getAppCustomErrorResponse(ex.getMessage());
-		} catch(Exception ex) {
-			return this.responseHandler.getAppExceptionResponse();
-		}
+	@CrossOrigin(origins = "*")		  
+    @RequestMapping(method = RequestMethod.GET, value = "/login")
+	public List<Customer> getAllCustomer(String user, String password) throws Exception{		
+	   return customerApplicationService.getLoginCustomer(user, password);
 	}
 	
 	@CrossOrigin(origins = "*")

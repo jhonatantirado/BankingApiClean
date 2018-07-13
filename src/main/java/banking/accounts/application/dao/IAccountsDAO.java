@@ -10,4 +10,8 @@ public interface IAccountsDAO {
 	
 	public List<BankAccount> getallAccount(int offset, int limit);
 	
+	public List<BankAccount> getAccountNroCuenta(String accountNumber);
+	
+	
+	
 }

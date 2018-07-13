@@ -32,7 +32,7 @@ JdbcTemplate template;
 	}
 	
 	public List<Customer> getLoginCustomer(String user, String password) {		
-		String sql="SELECT c.customer_id ,c.first_name,c.last_name,c.cellphone ,c.document_number , i.detalle AS perfil  FROM customer c INNER JOIN rol i ON c.customer_id = i.id_rol  WHERE c.user ="+"'"+user+"'" + " AND c.password ="+"'"+password+"'"  ;
+		String sql="SELECT c.customer_id ,c.first_name,c.last_name,c.cellphone ,c.document_number , i.detalle AS perfil  FROM customer c INNER JOIN rol i ON c.customer_id = i.id_rol  WHERE  isactive = 1 and c.user ="+"'"+user+"'" + " AND c.password ="+"'"+password+"'"  ;
 		System.out.println(sql);
 		return template.query(sql,new ResultSetExtractor<List<Customer>>(){  		    
 		     public List<Customer> extractData(ResultSet rs) throws SQLException,  
@@ -64,6 +64,35 @@ JdbcTemplate template;
 	@Override
 	public List<Customer> getallCustomer(int offset, int limit) {		
 		String sql="SELECT customer_id,first_name,last_name,birth_date,document_number,isactive,cellphone,email,USER,PASSWORD,id_rol FROM customer  LIMIT "+ ""+offset+", "+""+limit+"" ;
+		System.out.println(sql);
+		 return template.query(sql,new ResultSetExtractor<List<Customer>>(){  		    
+		     public List<Customer> extractData(ResultSet rs) throws SQLException,  
+		            DataAccessException {  		      
+		        List<Customer> list=new ArrayList<Customer>();
+		        while(rs.next()){  
+		        	Customer customer=new Customer(); 		        	
+		        	customer.setId(rs.getInt(1));
+		        	customer.setFirstName(rs.getString(2));
+		        	customer.setLastName(rs.getString(3));
+		        	customer.setBirthDate(rs.getDate(4));
+		        	customer.setDocumentNumber(rs.getString(5));
+		        	customer.setIsactive(rs.getBoolean(6));	 
+		        	customer.setCellphone(rs.getString(7));
+		        	customer.setEmail(rs.getString(8));
+		        	customer.setUser(rs.getString(9));
+		        	customer.setPassword(rs.getString(10)); 
+		        	customer.setId_rol(rs.getString(11));
+		       
+		        list.add(customer);  
+		        }  
+		        return list;  
+		        }  
+		    });  
+		  }
+
+	@Override
+	public List<Customer> getNrodocCustomer(String documentNumber) {
+		String sql="SELECT customer_id,first_name,last_name,birth_date,document_number,isactive,cellphone,email,USER,PASSWORD,id_rol FROM customer where isactive = 1 and  document_number = "+ ""+documentNumber+"" ;
 		System.out.println(sql);
 		 return template.query(sql,new ResultSetExtractor<List<Customer>>(){  		    
 		     public List<Customer> extractData(ResultSet rs) throws SQLException,  

@@ -57,8 +57,7 @@ public class AccountsApplicationService {
 		bankAccount.setIslocked(bankAccountDto.getIslocked());
 		bankAccount.setCustomer_id(bankAccountDto.getCustomer_id());
 		BankAccount updateBankAccount= this.save(bankAccount);		
-		return ResponseEntity.ok().body(updateBankAccount);
-		
+		return ResponseEntity.ok().body(updateBankAccount);		
 	}	
 	
 	@Transactional
@@ -125,6 +124,17 @@ public class AccountsApplicationService {
 		return accountDAO.getallAccount(offset, limit);		
 	}
 	
+	@Transactional
+	public List<BankAccount> getAccountNroCuenta(String accountNumber) {		
+		return accountDAO.getAccountNroCuenta(accountNumber);		
+	}
+		
+				
+	
+	
+	
+	
+	
 	private Notification validation(BankAccountDto bankAccountDto) {
 		Notification notification = new Notification();
 		if (bankAccountDto == null || bankAccountDto.getRequestBodyType() == RequestBodyType.INVALID) {
@@ -132,13 +142,7 @@ public class AccountsApplicationService {
 		}
 		return notification;
 	}
-	
-	private void validationN(int offset, int limit) {		
-		if (offset <= 0 || limit <= 0 ) {
-			//notification.addError("Invalid JSON data in request body.");
-		}
-		//return notification;
-	}
+		
 	
 	private static boolean isNumeric(String cadena){
 		try {
