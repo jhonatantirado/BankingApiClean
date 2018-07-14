@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import banking.common.api.controller.Utilidades;
 import banking.common.application.Notification;
 import banking.common.application.enumeration.RequestBodyType;
 import banking.customers.application.dao.CustomerDAO;
@@ -34,7 +35,8 @@ public class CustomerApplicationService implements ICustomerApplicationService {
 		Notification notification = this.validation(customerDto);
         if (notification.hasErrors()) {
             throw new IllegalArgumentException(notification.errorMessage());
-        }
+        }        
+        String EnriptarClave = Utilidades.Encriptar(customerDto.getPassword());        
 		Customer customer = new Customer(); 
 		customer.setFirstName(customerDto.getFirstName());
 		customer.setLastName(customerDto.getLastName());
@@ -44,7 +46,7 @@ public class CustomerApplicationService implements ICustomerApplicationService {
 		customer.setCellphone(customerDto.getCellphone());
 		customer.setEmail(customerDto.getEmail());
 		customer.setUser(customerDto.getUser());
-		customer.setPassword(customerDto.getPassword());
+		customer.setPassword(EnriptarClave);
 		customer.setId_rol(customerDto.getId_rol());		
 		Customer CreateCustomer= this.save(customer);		
 		return ResponseEntity.ok().body(CreateCustomer);				
@@ -62,6 +64,7 @@ public class CustomerApplicationService implements ICustomerApplicationService {
 		if(customer==null) {
 			return ResponseEntity.notFound().build();
 		}		
+		String EnriptarClave = Utilidades.Encriptar(customerDto.getPassword());
 		customer.setFirstName(customerDto.getFirstName());
 		customer.setLastName(customerDto.getLastName());
 		customer.setBirthDate(customerDto.getBirthDate());
@@ -70,7 +73,7 @@ public class CustomerApplicationService implements ICustomerApplicationService {
 		customer.setCellphone(customerDto.getCellphone());
 		customer.setEmail(customerDto.getEmail());
 		customer.setUser(customerDto.getUser());
-		customer.setPassword(customerDto.getPassword());
+		customer.setPassword(EnriptarClave);
 		customer.setId_rol(customerDto.getId_rol());		
 		Customer updateEmployee= this.save(customer);		
 		return ResponseEntity.ok().body(updateEmployee);
@@ -145,8 +148,9 @@ public class CustomerApplicationService implements ICustomerApplicationService {
 	}
 
 	@Transactional
-	public List<Customer> getLoginCustomer(String user,String password) {
-		return customerDAO.getLoginCustomer(user,password);		
+	public List<Customer> getLoginCustomer(String Message,String user,String password) {
+		 String EnriptarClave = Utilidades.Encriptar(password);
+		return customerDAO.getLoginCustomer(Message,user,EnriptarClave);		
 	}
 	
 	@Transactional
@@ -158,6 +162,10 @@ public class CustomerApplicationService implements ICustomerApplicationService {
 	public List<Customer> getNrodocCustomer(String documentNumber) {
 		return customerDAO.getNrodocCustomer(documentNumber);		
 	}
+
+
+
+	
 
 	
 	

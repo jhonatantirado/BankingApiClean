@@ -1,9 +1,19 @@
 package banking.customers.application.dto;
 
 
+import java.security.Key;
+import java.util.Base64;
 import java.util.Date;
+import java.util.Set;
+
+import javax.crypto.spec.SecretKeySpec;
+
+import org.mindrot.jbcrypt.BCrypt;
 
 import banking.common.application.dto.RequestBaseDto;
+import banking.security.domain.entity.UserRole;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 public class CustomerDto  extends RequestBaseDto {
 	
@@ -20,6 +30,53 @@ public class CustomerDto  extends RequestBaseDto {
     private String password; 
     private String id_rol;	
 	  
+    
+    public CustomerDto() {
+	}
+
+	public CustomerDto(String user, String password) {
+
+		this.user = user;
+
+		this.password = BCrypt.hashpw(password, BCrypt.gensalt(15));
+		
+	}
+	
+	public String generateJWT(String jwtEncodedKey) {
+
+		byte[] decodedKey = Base64.getDecoder().decode(jwtEncodedKey);
+
+		Key secretKey = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
+
+		
+		String accessToken = Jwts.builder().setSubject(user).claim("userName", user).signWith(SignatureAlgorithm.HS512, secretKey)
+				.compact();
+
+		return accessToken;
+	}
+	
+	@Override
+	public String toString() {
+		return "User [username=" + user + ", password=" + password + "]";
+	}
+	
+	public CustomerDto(String user, String password, String email,
+
+			boolean enabled, Set<UserRole> userRole) {
+
+			this.user = user;
+
+			this.password = BCrypt.hashpw(password, BCrypt.gensalt(15));
+
+			
+		}
+
+		public boolean verifyIdentity(String plainPassword) {
+
+			return BCrypt.checkpw(plainPassword, password);
+		}
+    
+    
     
     public Boolean getIsactive() {
 		return isactive;
