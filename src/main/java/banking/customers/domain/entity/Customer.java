@@ -16,7 +16,22 @@ public class Customer {
 	    private String email;
 	    private String user;
 	    private String password; 
-	    private String id_rol;	
+	    private String id_rol;
+	    
+	    public String getMessage() {
+			return message;
+		}
+
+		public void setMessage(String message) {
+			this.message = message;
+		}
+
+
+
+
+
+
+		private String message;
 	    
 	    
 	    public String getId_rol() {
